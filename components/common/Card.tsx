@@ -38,31 +38,35 @@ const Card : React.FC<PropertyProps> = ({name, address, rating, category, price,
 
     return(
         <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer">
-            <div className="relative h-48 overflow-hidden">
-                <Image src={image}  alt={name} width={100} height={100}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"/>
-            </div>
-            <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-1">{name}</h3>
-                <div className="flex justify-between items-center">
-                {address && (<p className="text-sm text-gray-600 mb-2">{address.city}, {address.country} </p>)}
-                {/* {offers? <span className="text-sm text-gray-600">{offers.bed} Bed | {offers.occupants} Occupants | {offers.shower} Shower </span> : ""} */}
+            <div className="relative w-full h-48 overflow-hidden">
+                    <Image src={image}  alt={name} fill
+                    className=" object-cover hover:scale-105 transition-transform duration-300"/>
                 </div>
-                <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center space-x-1">
-                        {renderStars(rating)}
-                        <span className="text-sm text-gray-600 ml-1">({rating})</span>
+                <div className="mt-2">
+                    {category.map((item, index)=> (
+                        <span key={index} className="px-2 mx-1 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">{item}</span>
+                    ))}
+                </div>
+                <div className="p-4">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-1">{name}</h3>
+                    <div className="flex justify-between items-center">
+                    {address && (<p className="text-sm text-gray-600 mb-2">{address.city}, {address.country} </p>)}
+                    {/* {offers? <span className="text-sm text-gray-600">{offers.bed} Bed | {offers.occupants} Occupants | {offers.shower} Shower </span> : ""} */}
                     </div>
-                    {category && (<span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">{category}</span>)}
+                    <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center space-x-1">
+                            {renderStars(rating)}
+                            <span className="text-sm text-gray-600 ml-1">({rating})</span>
+                        </div>
+                    </div>
+                    <div className="flex items-center justify-between">
+                        <span className="text-2xl font-bold text-blue-600">
+                            ${price}
+                            <span className="text-sm font-normal text-gray-600">/night</span>
+                        </span>
+                        {discount? <span>⬇️ <span className="text-green-600 font-bold">{discount}%</span></span> : ""}
+                    </div>
                 </div>
-                <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-blue-600">
-                        ${price}
-                        <span className="text-sm font-normal text-gray-600">/night</span>
-                    </span>
-                    {discount? <span>Discount <span className="text-green-600 font-bold">{discount}%</span></span> : ""}
-                </div>
-            </div>
         </div>
     )
 }
